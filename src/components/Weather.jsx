@@ -31,14 +31,14 @@ export const Weather = () => {
       "03n": scattered_clouds,
       "04d": scattered_clouds,
       "04n": scattered_clouds,
-      "05d": shower_rain_day,
-      "05n": shower_rain_night,
-      "06d": rain_day,
-      "06n": rain_night,
-      "07d": thunderstorm,
-      "07n": thunderstorm,
-      "08d": snow,
-      "08n": snow,
+      "09d": shower_rain_day,
+      "09n": shower_rain_night,
+      "10d": rain_day,
+      "10n": rain_night,
+      "11d": thunderstorm,
+      "11n": thunderstorm,
+      "13d": snow,
+      "13n": snow,
     };
 
 
@@ -60,6 +60,7 @@ export const Weather = () => {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiId}&units=metric`)
       const data = await response.json();
       const icon = allIcons[data.weather[0].icon];
+      console.log(data.weather[0].icon);
       setLocation({
         location: data.name,
         weather: data.weather[0].main,
@@ -92,24 +93,24 @@ export const Weather = () => {
   return (
    <>
    <div className='min-h-screen bg-gradient-to-tl from-slate-900 to-slate-600 flex justify-center items-center'>
-    <div className='w-[85vw] h-[80vh] bg-white/20 border rounded-xl px-6 py-3 text-white font-outfit flex'>
-    <div className='left-box flex flex-col w-[50%]'>
+    <div className='w-[85vw] h-[80vh] bg-white/20 border rounded-xl px-6 py-3 text-white font-outfit flex max-sm:flex-col-reverse'>
+    <div className='left-box flex flex-col w-[50%] max-sm:h-[50%]'>
       <div className='left-sub-box1 h-[50%] '>
       <p className='text-xl tracking-widest'>{Location.location}</p>
       <h1 className=' font-semibold text-5xl'>{Location.weather}</h1>
       </div>
-      <div className=" left-sub-box2 flex flex-col justify-end h-[50%]">
+      <div className=" left-sub-box2 flex flex-col justify-end h-[40%] max-sm:h-[50%]">
         <h1 className='text-9xl font-bold mb-6'>{Math.floor(Location.temperature)}°c</h1>
-        <div className='flex'>
-        <div className='flex'>
-          <img className='h-full' src={humidity} alt="" />
+        <div className='flex max-sm:justify-between'>
+        <div className='data-box flex max-sm:w-[100%]'>
+          <img className='h-full max-sm:h-10' src={humidity} alt="" />
           <div className="txt pl-2 ">
             <p className=' text-2xl'>{Location.humidity}%</p> 
             <p className='text-2xl'>Humidity</p>
           </div>
         </div>
         <div className='flex pl-2'>
-          <img className='h-full' src={wind} alt="" />
+          <img className='h-full max-sm:h-10' src={wind} alt="" />
           <div className="txt pl-2">
             <p className=' text-2xl'>{Location.wind}km/h</p>
             <p className='text-2xl'>Wind speed</p>
@@ -118,15 +119,15 @@ export const Weather = () => {
         </div>
       </div>
     </div>
-    <div className="right-box h-[100%] w-[50%] flex flex-col items-end">
-      <div className="right-sub-box1 h-[20%] flex">
+    <div className="right-box h-[100%] w-[100%] flex flex-col items-end max-sm:h-[50%]">
+      <div className="right-sub-box1 h-[20%] flex max-sm:w-[100%] justify-center">
         <input ref={inputRef} className='rounded-xl h-7 text-black px-2' type="text" name="search" id="search" />
         <div onClick={()=> searchFunction(inputRef.current.value)} className='bg-white h-7 w-7 rounded-full flex justify-center items-center ml-3 cursor-pointer'>
           <img className='h-4' src={search} alt="" />
         </div>
       </div>
-      <div className="right-sub-box2 h-[80%] flex items-end">
-      <img className='h-full' src={Location.icon} alt="" />
+      <div className="right-sub-box2 h-[80%] flex items-end ">
+      <img className='h-full max-sm:' src={Location.icon} alt="" />
       </div>
     </div>
     </div>
