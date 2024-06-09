@@ -59,11 +59,12 @@ export const Weather = () => {
       setIsLoading(true);
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiId}&units=metric`)
       const data = await response.json();
+      console.log(data);
       const icon = allIcons[data.weather[0].icon];
       console.log(data.weather[0].icon);
       setLocation({
         location: data.name,
-        weather: data.weather[0].main,
+        weather: data.weather[0].description,
         temperature: data.main.temp,
         humidity: data.main.humidity,
         wind: data.wind.speed,
@@ -74,62 +75,60 @@ export const Weather = () => {
     };
 
     useEffect(() => {
-    searchFunction("washington");
+    searchFunction("california");
   }, []);
 
     if(isloading) {
-      return <div className='min-h-screen bg-gradient-to-tl from-slate-900 to-slate-600 flex justify-center items-center'>
+      return <div className='min-h-screen bg-slate-300 flex justify-center items-center'>
         <l-ring-2
       size="40"
       stroke="5"
       stroke-length="0.25"
-      bg-opacity="0.1"
+      bg-opacity="0.2"
       speed="0.8" 
-      color="white" ></l-ring-2>
+      color="black" ></l-ring-2>
     </div>
     }
     
 
   return (
    <>
-   <div className='min-h-screen bg-gradient-to-tl from-slate-900 to-slate-600 flex justify-center items-center'>
-    <div className='w-[85vw] h-[80vh] bg-white/20 border rounded-xl px-6 py-3 text-white font-outfit flex max-sm:flex-col-reverse'>
-    <div className='left-box flex flex-col w-[50%] max-sm:h-[50%]'>
-      <div className='left-sub-box1 h-[50%] '>
-      <p className='text-xl tracking-widest'>{Location.location}</p>
-      <h1 className=' font-semibold text-5xl'>{Location.weather}</h1>
+   <div className='min-h-screen bg-slate-300 font-outfit text-blue-700 p-4 grid sm:grid-cols-2'>
+   <div className='box1 sm:order-1'>
+      <div className="sub-box1 justify-center flex items-center sm:justify-end">
+        <input ref={inputRef} className='p-2 rounded-l-md text-black max-sm:w-full' placeholder='Search a new city' type="text" name="search" id="search" />
+        <div onClick={()=> searchFunction(inputRef.current.value)} className='button bg-white rounded-r-md p-3 flex items-center justify-center'><img src={search} alt="" /></div>
       </div>
-      <div className=" left-sub-box2 flex flex-col justify-end h-[40%] max-sm:h-[50%]">
-        <h1 className='text-9xl font-bold mb-6'>{Math.floor(Location.temperature)}°c</h1>
-        <div className='flex max-sm:justify-between'>
-        <div className='data-box flex max-sm:w-[100%]'>
-          <img className='h-full max-sm:h-10' src={humidity} alt="" />
-          <div className="txt pl-2 ">
-            <p className=' text-2xl'>{Location.humidity}%</p> 
-            <p className='text-2xl'>Humidity</p>
-          </div>
-        </div>
-        <div className='flex pl-2'>
-          <img className='h-full max-sm:h-10' src={wind} alt="" />
-          <div className="txt pl-2">
-            <p className=' text-2xl'>{Location.wind}km/h</p>
-            <p className='text-2xl'>Wind speed</p>
-          </div>
-        </div>
-        </div>
+      <div className="sub-box-2 flex justify-center items-center">
+        <img className='w-[80%]' src={Location.icon} alt="" />
       </div>
     </div>
-    <div className="right-box h-[100%] w-[100%] flex flex-col items-end max-sm:h-[50%]">
-      <div className="right-sub-box1 h-[20%] flex max-sm:w-[100%] justify-center">
-        <input ref={inputRef} className='rounded-xl h-7 text-black px-2' type="text" name="search" id="search" />
-        <div onClick={()=> searchFunction(inputRef.current.value)} className='bg-white h-7 w-7 rounded-full flex justify-center items-center ml-3 cursor-pointer'>
-          <img className='h-4' src={search} alt="" />
+    <div className='box2'>
+      <div className="sub-box-1 sm:h-[20%]">
+        <div className='super-sub-box1 text-center sm:text-left'>
+          <p className='text-blue-500 text-3xl'>{Location.location}</p>
+          <h2 className='text-blue-600 text-6xl font-semibold'>{Location.weather}</h2>
         </div>
       </div>
-      <div className="right-sub-box2 h-[80%] flex items-end ">
-      <img className='h-full max-sm:' src={Location.icon} alt="" />
+      <div className="sub-box-2 flex flex-col justify-end sm:h-[80%]">
+        <h1 className='text-8xl font-extrabold pb-2 max-sm:text-center'>{Math.floor(Location.temperature)}°c</h1>
+        <div className='h-[20%] flex max-sm:justify-center'>
+          <div className='flex items-center pr-2'>
+            <img className='h-9 pr-2' src={humidity} alt="" />
+            <div className='leading-4 text-slate-500'>
+              <p className='text-3xl'>{Location.humidity}%</p>
+              <p className='text-2xl'>Humidity</p>
+            </div>
+          </div>
+          <div className='flex items-center'>
+            <img className='h-9 pr-2' src={wind} alt="" />
+            <div className='leading-4 text-slate-500'>
+              <p className='text-3xl'>{Location.wind}km/hrs</p>
+              <p className='text-2xl'>Humidity</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
     </div>
    </div>
    </>
