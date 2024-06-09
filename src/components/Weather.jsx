@@ -93,7 +93,7 @@ export const Weather = () => {
 
   return (
    <>
-   <div className='min-h-screen bg-slate-300 font-outfit text-blue-700 p-4 grid sm:grid-cols-2'>
+   <div className='min-h-screen bg-slate-300 font-outfit text-blue-800 p-4 grid sm:grid-cols-2'>
    <div className='box1 sm:order-1'>
       <div className="sub-box1 justify-center flex items-center sm:justify-end">
         <input ref={inputRef} className='p-2 rounded-l-md text-black max-sm:w-full' placeholder='Search a new city' type="text" name="search" id="search" />
