@@ -1,5 +1,8 @@
+<img width="960" alt="Sample1" src="https://github.com/user-attachments/assets/0184e4ce-3a7d-4b76-8443-1f500e6420d7">
+
 
 # 🌦️ SkyCast Weather App
+
 
 SkyCast is a weather application built using React and Tailwind CSS that fetches real-time weather data from the OpenWeather API. The app provides weather information such as temperature, humidity, and wind speed for any city in the world.
 
